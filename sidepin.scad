@@ -1,8 +1,8 @@
 module sidepin(
 	screw_diameter,
 	screw_depth,
-	pin_length,
-	pin_depth
+	pin_depth,
+	pin_length
 ){
 	union() {
 		cube([
