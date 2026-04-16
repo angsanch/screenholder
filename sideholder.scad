@@ -6,7 +6,8 @@ module sideholder(
 	pin_depth,
 	overhang,
 	pin_lengths,
-	distances
+	distances,
+	tilt
 )
 {
 	assert(len(pin_lengths) == len(distances), "Lengths and distances must be the same length");
@@ -22,23 +23,25 @@ module sideholder(
 	])
 	union (){
 		for (i = [0 : len(distances) - 1])
+			rotate([0, 0, tilt])
 			translate([
 				distances[i],
 				0,
 				0
 			])
 			sidepin(screw_diameter, screw_depth, pin_depth, pin_lengths[i]);
-
+		
 		translate([
 			left,
 			0,
 			0
 		])
-		cube([
-			width,
-			screw_diameter,
-			pin_depth
-		]);
+		linear_extrude(height=pin_depth)
+		polygon(points=[
+			[0, 0],
+			[width * cos(tilt), width * sin(tilt)],
+			[width, 0]]
+		);
 	};
 
 	translate([
