@@ -7,7 +7,8 @@ module sideholder(
 	overhang,
 	pin_lengths,
 	distances,
-	tilt
+	tilt,
+	support
 )
 {
 	assert(len(pin_lengths) == len(distances), "Lengths and distances must be the same length");
@@ -45,12 +46,12 @@ module sideholder(
 	};
 
 	translate([
-		left,
+		left - support,
 		0,
 		0
 	])
 	cube([
-		width,
+		width + support,
 		overhang[1],
 		overhang[0] + pin_depth
 	]);
